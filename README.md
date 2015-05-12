@@ -1,2 +1,3 @@
 # docker-deluge
-Random Deluge image for Docker. 
+
+Random Deluge image for Docker - why, because I can? I'm a little Docker happy today....
