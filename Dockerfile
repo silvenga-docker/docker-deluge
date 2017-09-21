@@ -9,8 +9,8 @@ RUN \
 RUN \
 	DEBIAN_FRONTEND=noninteractive apt-get update &&\
 	DEBIAN_FRONTEND=noninteractive apt-get install -y \
-		deluge-web=1.3.13-0~trusty~ppa1 \
-		deluged=1.3.13-0~trusty~ppa1 \
+		deluge-web=1.3.15-1~trusty~ppa3 \
+		deluged=1.3.15-1~trusty~ppa3 \
 		p7zip-full &&\
 	DEBIAN_FRONTEND=noninteractive apt-get clean
 
