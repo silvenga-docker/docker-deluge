@@ -3,21 +3,19 @@ pipeline {
     stages {
         stage('Prepare') { 
             steps {
-                echo 'Hello World ${env.BUILD_ID}'
                 checkout scm
             }
         }
         stage('Build'){
             steps {
                 script {
-                    def customImage = docker.build("registry.silvenga.com/deluge:${env.BUILD_ID}")
+                    docker.withRegistry("https://registry.silvenga.com", "registry") {
+                        def image = docker.build("registry.silvenga.com/deluge:${env.BUILD_ID}")
+                        image.push()
+                        image.push("latest")
+                    }
                 }
             }
         }
-        
-        // stage('Publish') {
-        //     steps {
-        //     }
-        // }
     }
 }
