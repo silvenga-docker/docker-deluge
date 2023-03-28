@@ -37,6 +37,7 @@ RUN set -xe \
     deluged \
     deluge-common \
     deluge-web \
+    && mkdir /config \
     # User
     && groupadd deluge --gid 1000 \
     && adduser deluge --uid 1000 --gid 1000 --disabled-password --gecos "" \
@@ -46,5 +47,6 @@ RUN set -xe \
 
 COPY rootfs/ /
 
+ENV S6_BEHAVIOUR_IF_STAGE2_FAILS =2
 VOLUME [ "/config" ]
-CMD ["/init"]
+ENTRYPOINT ["/init"]
