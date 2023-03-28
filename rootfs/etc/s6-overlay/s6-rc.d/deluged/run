@@ -1,0 +1,11 @@
+#!/usr/bin/execlineb -P
+
+/usr/bin/deluged \
+    --config /config \
+    --ui-interface 0.0.0.0 \
+    --interface 0.0.0.0 \
+    --loglevel info \
+    --logfile /dev/stdout \
+    --user deluge \
+    --group deluge \
+    --do-not-daemonize

@@ -1,0 +1,10 @@
+#!/usr/bin/execlineb -P
+
+/usr/bin/deluge-web
+    --config /config \
+    --interface 0.0.0.0 \
+    --loglevel info \
+    --logfile /dev/stdout \
+    --user deluge \
+    --group deluge \
+    --do-not-daemonize
