@@ -8,4 +8,5 @@
     --logfile /dev/stdout \
     --user deluge \
     --group deluge \
+    --pidfile /run/deluge.pid \
     --do-not-daemonize
