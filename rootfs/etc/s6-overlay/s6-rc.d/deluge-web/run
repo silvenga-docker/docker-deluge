@@ -1,11 +1,11 @@
 #!/command/execlineb -P
 
+s6-setuidgid deluge
+
 /usr/bin/deluge-web
     --config /config \
     --interface 0.0.0.0 \
     --loglevel info \
     --logfile /dev/stdout \
-    --user deluge \
-    --group deluge \
     --pidfile /run/deluge-web.pid \
     --do-not-daemonize
