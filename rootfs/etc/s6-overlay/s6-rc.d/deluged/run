@@ -7,6 +7,6 @@ s6-setuidgid deluge
     --ui-interface 0.0.0.0 \
     --interface 0.0.0.0 \
     --loglevel info \
-    --logfile /dev/stdout \
+    --logfile /config/deluged.log \
     --pidfile /run/deluge.pid \
     --do-not-daemonize
