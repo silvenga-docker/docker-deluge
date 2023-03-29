@@ -8,12 +8,11 @@ ARG S6_OVERLAY_VERSION=3.1.4.1
 
 RUN set -xe \
     && apt-get update \
+    && apt-get dist-upgrade -y \
     # Common
     && apt-get install -y \
     wget \
     software-properties-common \
-    unrar \
-    unzip \
     # Powershell
     && wget ${URL_PS} -O powershell.deb \
     && apt-get install -y ./powershell.deb \
@@ -37,12 +36,15 @@ RUN set -xe \
     deluged \
     deluge-common \
     deluge-web \
+    unrar \
+    unzip \
     && mkdir /config \
     # User
     && groupadd deluge --gid 1000 \
     && adduser deluge --uid 1000 --gid 1000 --disabled-password --gecos "" \
     # Cleanup
     && apt-get purge -y software-properties-common wget \
+    && apt-get autoremove -y --purge \
     && apt-get -q clean -y && rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin
 
 COPY rootfs/ /
