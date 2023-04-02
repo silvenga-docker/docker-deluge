@@ -1,5 +1,9 @@
 #!/command/execlineb -P
 
+importas niceness NICENESS
+
+nice --adjustment=${niceness}
+
 s6-setuidgid deluge
 
 /usr/bin/deluged \

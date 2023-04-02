@@ -49,8 +49,10 @@ RUN set -xe \
 
 COPY rootfs/ /
 
-ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2\
-    PYTHON_EGG_CACHE=/tmp/
+ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2 \
+    S6_KEEP_ENV=1 \
+    PYTHON_EGG_CACHE=/tmp/ \
+    NICENESS=10
 
 VOLUME [ "/config" ]
 ENTRYPOINT ["/init"]
