@@ -1,10 +1,11 @@
 FROM ubuntu:jammy AS base
 
-LABEL maintainer "Mark Lopez <m@silvenga.com>"
+LABEL org.opencontainers.image.authors "Mark Lopez <m@silvenga.com>"
 
-ARG URL_7Z=https://7-zip.org/a/7z2201-linux-x64.tar.xz
-ARG URL_PS=https://github.com/PowerShell/PowerShell/releases/download/v7.2.10/powershell-lts_7.2.10-1.deb_amd64.deb
-ARG S6_OVERLAY_VERSION=3.1.4.1
+ARG URL_7Z=https://7-zip.org/a/7z2301-linux-x64.tar.xz
+ARG S6_OVERLAY_VERSION=3.1.6.2
+
+ARG VERSION_ID=22.04
 
 RUN set -xe \
     && apt-get update \
@@ -13,10 +14,13 @@ RUN set -xe \
     && apt-get install -y \
     wget \
     software-properties-common \
+    apt-transport-https \
     # Powershell
-    && wget ${URL_PS} -O powershell.deb \
-    && apt-get install -y ./powershell.deb \
-    && rm powershell.deb \
+    && wget -q https://packages.microsoft.com/config/ubuntu/${VERSION_ID}/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
+    && apt-get install -y ./packages-microsoft-prod.deb \
+    && rm packages-microsoft-prod.deb \
+    && apt-get update \
+    && apt-get install -y powershell \
     # 7zz
     && wget ${URL_7Z} -O 7z.tar.xz \
     && tar xvf 7z.tar.xz -C /tmp/ \
