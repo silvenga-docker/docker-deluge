@@ -40,8 +40,10 @@ RUN set -xe \
     deluged \
     deluge-common \
     deluge-web \
+    deluge-console \
     unrar \
     unzip \
+    dnsutils \
     && mkdir /config \
     # User
     && groupadd deluge --gid 1000 \
