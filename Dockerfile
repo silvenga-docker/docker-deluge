@@ -1,10 +1,11 @@
-FROM ubuntu:jammy AS base
+FROM ubuntu:noble AS base
 
 LABEL org.opencontainers.image.authors "Mark Lopez <m@silvenga.com>"
 
-ARG URL_7Z=https://7-zip.org/a/7z2301-linux-x64.tar.xz
+ARG URL_7Z=https://7-zip.org/a/7z2405-linux-x64.tar.xz
 ARG S6_OVERLAY_VERSION=3.1.6.2
 
+# No release of PWSH for 22.04 yet.
 ARG VERSION_ID=22.04
 
 RUN set -xe \
@@ -16,6 +17,12 @@ RUN set -xe \
     software-properties-common \
     apt-transport-https \
     # Powershell
+    # HACK START
+    # https://github.com/PowerShell/PowerShell/issues/21385#issuecomment-2113021320
+    && wget -q https://launchpad.net/ubuntu/+archive/primary/+files/libicu72_72.1-3ubuntu3_amd64.deb -O libicu72_72.1-3ubuntu3_amd64.deb \
+    && dpkg -i libicu72_72.1-3ubuntu3_amd64.deb \
+    && rm libicu72_72.1-3ubuntu3_amd64.deb \
+    # HACK END
     && wget -q https://packages.microsoft.com/config/ubuntu/${VERSION_ID}/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
     && apt-get install -y ./packages-microsoft-prod.deb \
     && rm packages-microsoft-prod.deb \
@@ -35,7 +42,6 @@ RUN set -xe \
     && rm s6-overlay-noarch.tar.xz \
     && rm s6-overlay-x86_64.tar.xz \
     # Deluge
-    && apt-add-repository ppa:deluge-team/stable \
     && apt-get install -y \
     deluged \
     deluge-common \
@@ -45,9 +51,6 @@ RUN set -xe \
     unzip \
     dnsutils \
     && mkdir /config \
-    # User
-    && groupadd deluge --gid 1000 \
-    && adduser deluge --uid 1000 --gid 1000 --disabled-password --gecos "" \
     # Cleanup
     && apt-get purge -y software-properties-common wget \
     && apt-get autoremove -y --purge \

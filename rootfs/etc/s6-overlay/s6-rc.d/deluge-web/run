@@ -4,7 +4,7 @@ importas niceness NICENESS
 
 nice --adjustment=${niceness}
 
-s6-setuidgid deluge
+s6-setuidgid ubuntu
 
 /usr/bin/deluge-web
     --config /config \
